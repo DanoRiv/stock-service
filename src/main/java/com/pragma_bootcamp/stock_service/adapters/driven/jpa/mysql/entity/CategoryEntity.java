@@ -20,7 +20,7 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
-    @Size(max = 50, message = "The length of {0} cannot exceed {max} characters")
+    @Size(max = 50, message = MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE)
     private String name;
     @Column(nullable = false)
     @Size(max = 90, message = MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE)
