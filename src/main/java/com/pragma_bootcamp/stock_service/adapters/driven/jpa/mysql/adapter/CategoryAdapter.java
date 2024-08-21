@@ -38,6 +38,9 @@ public class CategoryAdapter implements ICategoryPersistencePort {
     }
 
     private Sort sortBy(String sort){
+        if(sort == null){
+            return Sort.unsorted();
+        }
         if(sort.equalsIgnoreCase("asc")){
             return Sort.by("name").ascending();
         }
