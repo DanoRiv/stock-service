@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ICategoryPersistencePort {
     void saveCategory(Category category);
+    boolean alreadyExists(Category category);
 }
