@@ -6,5 +6,5 @@ public class Constants {
     }
     public static final String MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE = "The length of the field must not exceed {max} characters";
     public static final String DUPLICATE_CATEGORY_EXCEPTION_MESSAGE = "The category already exists";
-    public static final String EMPTY_FIELD_EXCEPTION_MESSAGE = "The field %s cannot be empty";
+    public static final String EMPTY_FIELD_EXCEPTION_MESSAGE = "The field cannot be empty";
 }
