@@ -1,6 +1,5 @@
 package com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.DuplicatedEntryException;
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.pragma_bootcamp.stock_service.domain.model.Category;
@@ -15,9 +14,11 @@ public class CategoryAdapter implements ICategoryPersistencePort {
 
     @Override
     public void saveCategory(Category category) {
-        if(categoryRepository.findByName(category.getName()).isPresent()){
-            throw new DuplicatedEntryException();
-        }
         categoryRepository.save(categoryEntityMapper.toEntity(category));
+    }
+
+    @Override
+    public boolean alreadyExists(Category category) {
+        return categoryRepository.findByName(category.getName()).isPresent();
     }
 }
