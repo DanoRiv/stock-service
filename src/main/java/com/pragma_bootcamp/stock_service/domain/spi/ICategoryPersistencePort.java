@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ICategoryPersistencePort {
     void saveCategory(Category category);
+    boolean alreadyExists(Category category);
     List<Category> getAllCategories(int page, int size, String sort);
 }

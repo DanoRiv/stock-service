@@ -9,13 +9,14 @@ import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -28,6 +29,21 @@ public class ControllerAdvisor {
     @ExceptionHandler(NoDataFoundException.class)
     public ResponseEntity<ExceptionResponse> handleNoDataFoundException(NoDataFoundException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(String.format(Constants.NO_DATA_FOUND_EXCEPTION_MESSAGE, exception.getMessage()), HttpStatus.NOT_FOUND.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
+        BindingResult result = exception.getBindingResult();
+        Map<String, String> errors = new LinkedHashMap<>();
+
+        for(FieldError fieldError : result.getFieldErrors()) {
+            String fieldName = fieldError.getField();
+            errors.computeIfAbsent(fieldName,key -> fieldError.getDefaultMessage());
+        }
+        String formattedMessage = errors.entrySet().stream()
+                .map(entry -> String.format("%s Field '%s': %s", result.getObjectName(), entry.getKey(), entry.getValue()))
+                .reduce((message1, message2) -> message1 + "; " + message2)
+                .orElse("Validation error");
+        return ResponseEntity.badRequest().body(new ExceptionResponse(formattedMessage, HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ExceptionResponse> handleNullPointerException(NullPointerException exception) {
