@@ -1,6 +1,7 @@
 package com.pragma_bootcamp.stock_service.configuration.exceptionhandler;
 
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.DuplicatedEntryException;
+import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.NoDataFoundException;
 import com.pragma_bootcamp.stock_service.configuration.Constants;
 import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
 import jakarta.validation.ConstraintViolation;
@@ -21,6 +22,14 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ControllerAdvisor {
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponse> handleIllegalArgumentException(IllegalArgumentException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(String.format(exception.getMessage()), HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(NoDataFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleNoDataFoundException(NoDataFoundException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(String.format(Constants.NO_DATA_FOUND_EXCEPTION_MESSAGE, exception.getMessage()), HttpStatus.NOT_FOUND.toString(), LocalDateTime.now()));
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
         BindingResult result = exception.getBindingResult();

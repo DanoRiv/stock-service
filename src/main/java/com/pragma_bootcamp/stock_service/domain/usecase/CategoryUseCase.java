@@ -31,4 +31,9 @@ public class CategoryUseCase implements ICategoryServicePort {
         categoryPersistencePort.saveCategory(category);
     }
 
+    @Override
+    public List<Category> getAllCategories(int page, int size, String sort) {
+        return categoryPersistencePort.getAllCategories(page, size, sort);
+    }
+
 }
