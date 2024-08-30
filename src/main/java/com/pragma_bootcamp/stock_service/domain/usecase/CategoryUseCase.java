@@ -1,6 +1,6 @@
 package com.pragma_bootcamp.stock_service.domain.usecase;
 
-import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.DuplicatedEntryException;
+import com.pragma_bootcamp.stock_service.domain.exception.DuplicatedEntryException;
 import com.pragma_bootcamp.stock_service.domain.api.ICategoryServicePort;
 import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
 import com.pragma_bootcamp.stock_service.domain.model.Category;
@@ -25,7 +25,7 @@ public class CategoryUseCase implements ICategoryServicePort {
             throw new EmptyFieldException(DomainConstants.Field.DESCRIPTION.toString());
         }
         if(categoryPersistencePort.alreadyExists(category)){
-            throw new DuplicatedEntryException();
+            throw new DuplicatedEntryException(DomainConstants.DUPLICATED_CATEGORY_EXCEPTION_MESSAGE);
         }
         categoryPersistencePort.saveCategory(category);
     }

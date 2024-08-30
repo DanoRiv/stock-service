@@ -1,6 +1,6 @@
 package com.pragma_bootcamp.stock_service.configuration.exceptionhandler;
 
-import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.DuplicatedEntryException;
+import com.pragma_bootcamp.stock_service.domain.exception.DuplicatedEntryException;
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.NoDataFoundException;
 import com.pragma_bootcamp.stock_service.configuration.Constants;
 import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
@@ -56,7 +56,7 @@ public class ControllerAdvisor {
     @ExceptionHandler(DuplicatedEntryException.class)
     public ResponseEntity<ExceptionResponse> handleDuplicatedEntryException(DuplicatedEntryException exception) {
         return ResponseEntity.badRequest()
-                .body(new ExceptionResponse(String.format(Constants.DUPLICATE_CATEGORY_EXCEPTION_MESSAGE),
+                .body(new ExceptionResponse(String.format(exception.getMessage()),
                         HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
     @ExceptionHandler(ConstraintViolationException.class)

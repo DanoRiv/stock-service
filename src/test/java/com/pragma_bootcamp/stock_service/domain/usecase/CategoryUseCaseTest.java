@@ -1,6 +1,6 @@
 package com.pragma_bootcamp.stock_service.domain.usecase;
 
-import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.DuplicatedEntryException;
+import com.pragma_bootcamp.stock_service.domain.exception.DuplicatedEntryException;
 import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
 import com.pragma_bootcamp.stock_service.domain.model.Category;
 import com.pragma_bootcamp.stock_service.domain.spi.ICategoryPersistencePort;

@@ -1,6 +1,6 @@
 package com.pragma_bootcamp.stock_service.domain.usecase;
 
-import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.DuplicatedEntryException;
+import com.pragma_bootcamp.stock_service.domain.exception.DuplicatedEntryException;
 import com.pragma_bootcamp.stock_service.domain.api.IBrandServicePort;
 import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
 import com.pragma_bootcamp.stock_service.domain.model.Brand;
@@ -19,7 +19,7 @@ public class BrandUseCase implements IBrandServicePort {
     public void saveBrand(Brand brand) {
         if(brand.getName().isBlank()) throw new EmptyFieldException(DomainConstants.Field.NAME.toString());
         if(brand.getDescription().isBlank()) throw new EmptyFieldException(DomainConstants.Field.DESCRIPTION.toString());
-        if(brandPersistencePort.alreadyExists(brand)) throw new DuplicatedEntryException();
+        if(brandPersistencePort.alreadyExists(brand)) throw new DuplicatedEntryException(DomainConstants.DUPLICATED_BRAND_EXCEPTION_MESSAGE);
 
         brandPersistencePort.saveBrand(brand);
     }
