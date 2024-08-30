@@ -1,10 +1,9 @@
 package com.pragma_bootcamp.stock_service.domain.api;
 
 import com.pragma_bootcamp.stock_service.domain.model.Category;
-
-import java.util.List;
+import com.pragma_bootcamp.stock_service.domain.util.PaginatedResult;
 
 public interface ICategoryServicePort {
     void saveCategory(Category category);
-    List<Category> getAllCategories(int page, int size, String sort);
+    PaginatedResult<Category> getAllCategories(int page, int size, String sort);
 }

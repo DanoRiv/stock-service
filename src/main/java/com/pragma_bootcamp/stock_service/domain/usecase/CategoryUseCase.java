@@ -6,8 +6,7 @@ import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
 import com.pragma_bootcamp.stock_service.domain.model.Category;
 import com.pragma_bootcamp.stock_service.domain.spi.ICategoryPersistencePort;
 import com.pragma_bootcamp.stock_service.domain.util.DomainConstants;
-
-import java.util.List;
+import com.pragma_bootcamp.stock_service.domain.util.PaginatedResult;
 
 public class CategoryUseCase implements ICategoryServicePort {
 
@@ -32,7 +31,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public List<Category> getAllCategories(int page, int size, String sort) {
+    public PaginatedResult<Category> getAllCategories(int page, int size, String sort) {
         return categoryPersistencePort.getAllCategories(page, size, sort);
     }
 

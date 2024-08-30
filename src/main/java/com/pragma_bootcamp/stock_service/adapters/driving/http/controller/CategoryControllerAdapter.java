@@ -5,13 +5,12 @@ import com.pragma_bootcamp.stock_service.adapters.driving.http.dto.response.Cate
 import com.pragma_bootcamp.stock_service.adapters.driving.http.mapper.ICategoryRequestMapper;
 import com.pragma_bootcamp.stock_service.adapters.driving.http.mapper.ICategoryResponseMapper;
 import com.pragma_bootcamp.stock_service.domain.api.ICategoryServicePort;
+import com.pragma_bootcamp.stock_service.domain.util.PaginatedResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -28,7 +27,7 @@ public class CategoryControllerAdapter {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CategoryResponse>> getAllCategories(@RequestParam int page, @RequestParam int size, @RequestParam(required = false) String sort){
+    public ResponseEntity<PaginatedResult<CategoryResponse>> getAllCategories(@RequestParam int page, @RequestParam int size, @RequestParam(required = false) String sort){
         return ResponseEntity.ok(categoryResponseMapper.toCategoryResponseList(categoryServicePort.getAllCategories(page, size, sort)));
     }
 }
