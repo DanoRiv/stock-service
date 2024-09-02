@@ -6,6 +6,7 @@ import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
 import com.pragma_bootcamp.stock_service.domain.model.Brand;
 import com.pragma_bootcamp.stock_service.domain.spi.IBrandPersistencePort;
 import com.pragma_bootcamp.stock_service.domain.util.DomainConstants;
+import com.pragma_bootcamp.stock_service.domain.util.PaginatedResult;
 
 public class BrandUseCase implements IBrandServicePort {
 
@@ -22,5 +23,10 @@ public class BrandUseCase implements IBrandServicePort {
         if(brandPersistencePort.alreadyExists(brand)) throw new DuplicatedEntryException(DomainConstants.DUPLICATED_BRAND_EXCEPTION_MESSAGE);
 
         brandPersistencePort.saveBrand(brand);
+    }
+
+    @Override
+    public PaginatedResult<Brand> getAllBrands(int page, int size, String sort) {
+        return brandPersistencePort.getAllBrands(page, size, sort);
     }
 }
