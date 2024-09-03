@@ -4,6 +4,7 @@ import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.entity.Catego
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.NoDataFoundException;
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.repository.ICategoryRepository;
+import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.util.Sorting;
 import com.pragma_bootcamp.stock_service.domain.model.Category;
 import com.pragma_bootcamp.stock_service.domain.spi.ICategoryPersistencePort;
 import com.pragma_bootcamp.stock_service.domain.util.PaginatedResult;
@@ -11,9 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
+
+import static com.pragma_bootcamp.stock_service.configuration.Constants.SORT_BY_NAME;
 
 @RequiredArgsConstructor
 public class CategoryAdapter implements ICategoryPersistencePort {
@@ -32,7 +34,8 @@ public class CategoryAdapter implements ICategoryPersistencePort {
 
     @Override
     public PaginatedResult<Category> getAllCategories(int page, int size, String sort) {
-        Pageable pageable = PageRequest.of(page, size, sortBy(sort));
+        Sorting sorting = new Sorting();
+        Pageable pageable = PageRequest.of(page, size, sorting.sortBy(SORT_BY_NAME, sort));
         Page<CategoryEntity> categoryPage = categoryRepository.findAll(pageable);
         List<Category> categories = categoryEntityMapper.toModelList(categoryPage.getContent());
         if(categories.isEmpty()){
@@ -46,18 +49,5 @@ public class CategoryAdapter implements ICategoryPersistencePort {
                 categoryPage.getTotalElements(),
                 categoryPage.getTotalPages()
         );
-    }
-
-    private Sort sortBy(String sort){
-        if(sort == null){
-            return Sort.unsorted();
-        }
-        if(sort.equalsIgnoreCase("asc")){
-            return Sort.by("name").ascending();
-        }
-        if(sort.equalsIgnoreCase("desc")){
-            return Sort.by("name").descending();
-        }
-        return Sort.unsorted();
     }
 }
