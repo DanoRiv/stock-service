@@ -61,7 +61,7 @@ class BrandControllerAdapterTest {
     void shouldThrowExceptionWhenDescriptionIsTooLong () throws Exception{
         BrandRequest brandRequest = new BrandRequest();
         brandRequest.setName("Home");
-        brandRequest.setDescription("This is a veeery long description and it should throw an exception because it exceeds 90 characters");
+        brandRequest.setDescription("This is a very long description and it violates the constraint of the max 120 characters for the description so it should throw an exception");
 
         mockMvc.perform(post("/brand/")
                         .contentType(MediaType.APPLICATION_JSON)
