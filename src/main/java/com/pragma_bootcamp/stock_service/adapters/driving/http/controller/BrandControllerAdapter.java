@@ -1,7 +1,6 @@
 package com.pragma_bootcamp.stock_service.adapters.driving.http.controller;
 
 import com.pragma_bootcamp.stock_service.adapters.driving.http.dto.request.BrandRequest;
-import com.pragma_bootcamp.stock_service.adapters.driving.http.dto.request.CategoryRequest;
 import com.pragma_bootcamp.stock_service.adapters.driving.http.dto.response.BrandResponse;
 import com.pragma_bootcamp.stock_service.adapters.driving.http.mapper.IBrandRequestMapper;
 import com.pragma_bootcamp.stock_service.adapters.driving.http.mapper.IBrandResponseMapper;
