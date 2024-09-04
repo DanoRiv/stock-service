@@ -13,4 +13,5 @@ public class DomainConstants {
 
     public static final String DUPLICATED_CATEGORY_EXCEPTION_MESSAGE = "The category already exists";
     public static final String DUPLICATED_BRAND_EXCEPTION_MESSAGE = "The brand already exists";
+    public static final String DUPLICATED_ITEM_EXCEPTION_MESSAGE = "The item already exists";
 }
