@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.pragma_bootcamp.stock_service.configuration.Constants.SORT_BY_NAME;
 
@@ -49,5 +50,10 @@ public class CategoryAdapter implements ICategoryPersistencePort {
                 categoryPage.getTotalElements(),
                 categoryPage.getTotalPages()
         );
+    }
+
+    @Override
+    public Optional<Category> getCategoryById(Long id) {
+        return categoryEntityMapper.toCategoryOptional(categoryRepository.findById(id));
     }
 }
