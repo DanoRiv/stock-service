@@ -1,6 +1,7 @@
 package com.pragma_bootcamp.stock_service.domain.model;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Item {
@@ -9,11 +10,10 @@ public class Item {
     private final String description;
     private final Integer quantity;
     private final BigDecimal price;
-    private final Brand brand;
-    private final Set<Category> categories;
+    private Brand brand;
+    private Set<Category> categories = new HashSet<>();
 
     public Item(Long id, String name, String description, Integer quantity, BigDecimal price, Brand brand, Set<Category> categories) {
-        amountOfCategoriesValidation(categories);
         this.id = id;
         this.name = name;
         this.description = description;
@@ -47,13 +47,16 @@ public class Item {
         return brand;
     }
 
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
     public Set<Category> getCategories() {
         return categories;
     }
 
-    private void amountOfCategoriesValidation(Set<Category> categories){
-        if(categories == null || categories.isEmpty() || categories.size() > 3) {
-            throw new IllegalArgumentException();
-        }
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
+
 }
