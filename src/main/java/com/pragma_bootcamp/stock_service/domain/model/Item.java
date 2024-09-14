@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.pragma_bootcamp.stock_service.domain.util.DomainConstants.*;
+import static java.util.Objects.requireNonNull;
+
 public class Item {
     private final Long id;
     private final String name;
@@ -15,11 +18,11 @@ public class Item {
 
     public Item(Long id, String name, String description, Integer quantity, BigDecimal price, Brand brand, Set<Category> categories) {
         this.id = id;
-        this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-        this.price = price;
-        this.brand = brand;
+        this.name = requireNonNull(name, FIELD_NAME_NULL_MESSAGE);
+        this.description = requireNonNull(description, FIELD_DESCRIPTION_NULL_MESSAGE);
+        this.quantity = requireNonNull(quantity, FIELD_QUANTITY_NULL_MESSAGE);
+        this.price = requireNonNull(price, FIELD_PRICE_NULL_MESSAGE);
+        this.brand = requireNonNull(brand, FIELD_BRAND_NULL_MESSAGE);
         this.categories = categories;
     }
 
