@@ -1,9 +1,8 @@
 package com.pragma_bootcamp.stock_service.configuration.exceptionhandler;
 
-import com.pragma_bootcamp.stock_service.domain.exception.DuplicatedEntryException;
+import com.pragma_bootcamp.stock_service.domain.exception.*;
 import com.pragma_bootcamp.stock_service.adapters.driven.jpa.mysql.exception.NoDataFoundException;
 import com.pragma_bootcamp.stock_service.configuration.Constants;
-import com.pragma_bootcamp.stock_service.domain.exception.EmptyFieldException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,18 @@ import java.util.*;
 @ControllerAdvice
 @RequiredArgsConstructor
 public class ControllerAdvisor {
-
+    @ExceptionHandler(NegativeNumberNotAllowedException.class)
+    public ResponseEntity<ExceptionResponse> handleNegativeNotAllowedException(NegativeNumberNotAllowedException exception){
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new ExceptionResponse(String.format(exception.getMessage()), HttpStatus.NOT_ACCEPTABLE.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleBrandNotFoundException(BrandNotFoundException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(String.format(exception.getMessage()), HttpStatus.NOT_FOUND.toString(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleCategoryNotFoundException(CategoryNotFoundException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(String.format(exception.getMessage()), HttpStatus.NOT_FOUND.toString(), LocalDateTime.now()));
+    }
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionResponse> handleIllegalArgumentException(IllegalArgumentException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(String.format(exception.getMessage()), HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
