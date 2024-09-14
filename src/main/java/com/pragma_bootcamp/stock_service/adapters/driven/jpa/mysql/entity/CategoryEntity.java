@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 import static com.pragma_bootcamp.stock_service.configuration.Constants.*;
 
 @Entity
@@ -30,7 +28,4 @@ public class CategoryEntity {
     @NotBlank(message = EMPTY_FIELD_EXCEPTION_MESSAGE)
     @Size(max = MAX_CHARACTERS_CATEGORY_DESCRIPTION, message = MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE)
     private String description;
-
-    @ManyToMany(mappedBy = "categories")
-    private List<ItemEntity> items;
 }
