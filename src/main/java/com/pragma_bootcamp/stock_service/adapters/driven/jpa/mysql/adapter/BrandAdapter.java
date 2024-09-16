@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.pragma_bootcamp.stock_service.configuration.Constants.SORT_BY_NAME;
 
@@ -48,6 +49,11 @@ public class BrandAdapter implements IBrandPersistencePort {
                 brandPage.getTotalElements(),
                 brandPage.getTotalPages()
         );
+    }
+
+    @Override
+    public Optional<Brand> getBrandById(Long id) {
+        return brandEntityMapper.toBrandOptional(brandRepository.findById(id));
     }
 
 }

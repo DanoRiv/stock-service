@@ -5,14 +5,18 @@ import static com.pragma_bootcamp.stock_service.domain.util.DomainConstants.FIEL
 import static java.util.Objects.requireNonNull;
 
 public class Brand {
-    private final Long id;
-    private final String name;
-    private final String description;
+    private Long id;
+    private String name;
+    private String description;
 
     public Brand(Long id, String name, String description) {
         this.id = id;
         this.name = requireNonNull(name, FIELD_NAME_NULL_MESSAGE);
         this.description = requireNonNull(description, FIELD_DESCRIPTION_NULL_MESSAGE);
+    }
+
+    public Brand() {
+
     }
 
     public Long getId() {
@@ -25,5 +29,9 @@ public class Brand {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

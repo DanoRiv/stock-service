@@ -8,8 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static com.pragma_bootcamp.stock_service.configuration.Constants.EMPTY_FIELD_EXCEPTION_MESSAGE;
-import static com.pragma_bootcamp.stock_service.configuration.Constants.MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE;
+import static com.pragma_bootcamp.stock_service.configuration.Constants.*;
 
 @Entity
 @Table(name="category")
@@ -23,10 +22,10 @@ public class CategoryEntity {
     private Long id;
     @Column(nullable = false, unique = true)
     @NotBlank(message = EMPTY_FIELD_EXCEPTION_MESSAGE)
-    @Size(max = 50, message = MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE)
+    @Size(max = MAX_CHARACTERS_CATEGORY_NAME, message = MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE)
     private String name;
     @Column(nullable = false)
     @NotBlank(message = EMPTY_FIELD_EXCEPTION_MESSAGE)
-    @Size(max = 90, message = MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE)
+    @Size(max = MAX_CHARACTERS_CATEGORY_DESCRIPTION, message = MAX_CHARACTER_LENGTH_EXCEPTION_MESSAGE)
     private String description;
 }
